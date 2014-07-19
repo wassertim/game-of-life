@@ -1,0 +1,48 @@
+@()
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title></title>
+            <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+            <!-- Optional theme -->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/main.css")" />
+
+            <!-- Latest compiled and minified JavaScript -->
+        <script src="http://code.jquery.com/jquery-2.1.1.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.js"></script>
+        <script src="@routes.Assets.at("javascripts/app.js")"></script>
+        <script src="@routes.Assets.at("javascripts/controllers/BoardController.js")"></script>
+        <script src="@routes.Assets.at("javascripts/services/Generation.js")"></script>
+        <script src="@routes.Assets.at("javascripts/services/GenerationHttp.js")"></script>
+    </head>
+    <body ng-app="gameOfLife">
+        <div ng-controller="BoardController" class="container">
+            <div class="page-header">
+                <h1>Game of life</h1>
+            </div>
+            Rows: <input type="text" class="form-control" ng-model="config.rowsCount"/>
+            Columns: <input type="text" class="form-control" ng-model="config.columnsCount"/>
+            <hr/>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default" ng-disabled="!codeVersion.isServer" ng-click="toggleVersion()">JavaScript implementation</button>
+                <button type="button" class="btn btn-default" ng-disabled="codeVersion.isServer" ng-click="toggleVersion()">Scala implementation</button>
+
+            </div>
+            <button ng-click="newUniverse()" class="btn btn-success">New</button>
+            <button ng-click="next()" class="btn btn-primary">Next Generation</button>
+            <hr/>
+            <table id="universe">
+                <tr ng-repeat="row in generation">
+                    <td ng-repeat="cell in row.cells track by $index" ng-click="toggle($parent.$index, $index)">
+                        <span ng-show="cell.isAlive" class="cell"></span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>

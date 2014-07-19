@@ -1,0 +1,15 @@
+table#universe td {
+    width: 15px;
+    height: 15px;
+    text-align: center;
+    vertical-align: middle;
+    border: solid 1px #ddd;
+}
+.cell {
+    width: 14px;
+    height: 14px;
+    display: block;
+    background-color: green;
+}
+
+
